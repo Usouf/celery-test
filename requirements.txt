@@ -1,0 +1,9 @@
+celery
+Django
+djangorestframework
+flower
+redis
+django-celery-beat
+
+pytest
+pytest-django

@@ -1,0 +1,15 @@
+### Project specific
+venv/
+*.env
+celery.log
+db.sqlite3
+celerybeat-schedule.db
+dump.rdb
+
+### VisualStudioCode specific
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.vscode/
