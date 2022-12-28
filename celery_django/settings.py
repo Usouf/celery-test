@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 from celery.schedules import crontab
 
@@ -123,3 +122,4 @@ CELERY_BEAT_SCHEDULE = {
     }
 }
 CELERY_TIMEZONE = 'Asia/Dubai'
+CELERY_ENABLE_UTC = True

@@ -1,3 +1,4 @@
+import pytz
 import datetime
 import logging
 
@@ -15,7 +16,7 @@ class GenericCall(generics.GenericAPIView):
 
     def get(self, request):
         task_type = request.data.get('type')
-        task = create_task.delay(int(task_type))
+        task = create_task.delay(task_type)
         return response.Response({'task': task.id}, status=status.HTTP_200_OK)
 
 class CallStatus(generics.GenericAPIView):
@@ -64,7 +65,12 @@ class CountViewSet(viewsets.ModelViewSet):
 class ScheduleTask(generics.GenericAPIView):
 
     def post(self, request, *args, **kwargs):
-        task = scheduled_task.apply_async(eta=datetime.datetime(2022, 11, 16, 13, 20))
-        log.info('task id: %s', task.id)
+        minutes = 5
+        now = datetime.datetime.now(pytz.timezone('Asia/Dubai'))
+        future = now + datetime.timedelta(minutes=minutes)
+        print("now time: %s" % now )
+        print("future time: %s" % future )
+        task = scheduled_task.apply_async(eta=future)
+        print('task id: %s', task.id)
         return response.Response(status=status.HTTP_200_OK)
 

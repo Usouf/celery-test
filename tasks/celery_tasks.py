@@ -14,18 +14,16 @@ def create_task(task_type):
     log.info("Hello from task")
     return True
 
-@app.task
-def count_model_items():
+@app.task(bind=True, autoretry_for=(Exception,), retry_backoff=5, retry_kwargs={'max_retries': 5})
+def count_model_items(self):
     models_count = SomeModel.objects.all().count()
-    log.info("models_count: %s", models_count)
     count = NumberOfSomeModelItems.objects.create(count=models_count)
     count.save()
-    log.info("count: %s", count)
-    return True
+    log.info("count: %s", count.count)
+    return {"id": count.id, "count": count.count}
 
 @app.task
 def scheduled_task():
-    # log.info("scheduled_task: %s", type)
     some = SomeModel.objects.create(name="Scheduled task")
-    log.info("some model: %s", some)
-    # some.save()
+    log.info("some model: %s", some.name)
+    return some.id
