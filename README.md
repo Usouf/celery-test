@@ -130,7 +130,7 @@ When your task fails because of any exception, you can let celery ```auto_retry`
 def count_model_items(self):
     # some code
 ```
-```autoretry_for``` list/tuple of exceptions that triggers retry when raised
-```max_retries``` number of retries before giving up.
+```autoretry_for``` list/tuple of exceptions that triggers retry when raised  
+```max_retries``` number of retries before giving up.  
 ```retry_backoff``` autoretries will be delayed according to the number provided.
 to understand more, checkout the [documentation](https://docs.celeryq.dev/en/stable/userguide/tasks.html#Task.autoretry_for)
